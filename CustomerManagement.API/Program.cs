@@ -23,4 +23,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//Habilita las peticiones para consumir endpoints
+//app.UseCors(x => x
+//    .AllowAnyMethod()
+//    .AllowAnyHeader()
+//    .SetIsOriginAllowed(origin => true)
+//    .AllowCredentials());
+
 app.Run();
