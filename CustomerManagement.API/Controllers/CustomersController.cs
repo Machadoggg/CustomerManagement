@@ -69,26 +69,17 @@ namespace CustomerManagement.API.Controllers
             DateTime currentDate = DateTime.Now;    
             int age = currentDate.Year - customer.FechaNacimiento.Year;
 
-            if (age >= 0 && age <= 7)
+            if (age >= 0 && age <= 7 && customer.TipoDocumento != "Registro Civil (RC)")
             {
-                if (customer.TipoDocumento != "Registro Civil (RC)")
-                {
                     return BadRequest("El documento debe ser Registro Civil (RC) para clientes de 0 a 7 años.");
-                }
             }
-            else if (age >= 8 && age <= 17)
+            if (age >= 8 && age <= 17 && customer.TipoDocumento != "Tarjeta Identidad (TI)")
             {
-                if (customer.TipoDocumento != "Tarjeta Identidad (TI)")
-                {
                     return BadRequest("El documento debe ser Tarjeta Identidad (TI) para clientes de 8 a 17 años.");
-                }
             }
-            else if (age > 18)
+            if (age > 18 && customer.TipoDocumento != "Cedula Ciudadanía (CC)")
             {
-                if (customer.TipoDocumento != "Cedula Ciudadanía (CC)")
-                {
                     return BadRequest("El documento debe ser Cedula Ciudadanía (CC) para clientes mayores de 18 años.");
-                }
             }
 
             _context.Customers.Add(customer);
