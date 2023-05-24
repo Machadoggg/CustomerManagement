@@ -37,21 +37,16 @@ namespace CustomerManagement.API.Controllers
                 {
                     customers = customers
                         .Where(c => c.NumeroDocumento.ToString().Contains(documento))
-                        .OrderBy(c => c.Nombres)
+                        .OrderBy(c => c.NumeroDocumento)
                         .ToList();
                     return Ok(customers);
                 }
                 
                 return Ok(customers);
-                
-
-                
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                return BadRequest("Error.");
+                return BadRequest(ex.Message);
             }
         }
 
@@ -71,6 +66,31 @@ namespace CustomerManagement.API.Controllers
         [HttpPost]
         public async Task<ActionResult> PostAsync(Customer customer)
         {
+            DateTime currentDate = DateTime.Now;    
+            int age = currentDate.Year - customer.FechaNacimiento.Year;
+
+            if (age >= 0 && age <= 7)
+            {
+                if (customer.TipoDocumento != "Registro Civil (RC)")
+                {
+                    return BadRequest("El documento debe ser Registro Civil (RC) para clientes de 0 a 7 años.");
+                }
+            }
+            else if (age >= 8 && age <= 17)
+            {
+                if (customer.TipoDocumento != "Tarjeta Identidad (TI)")
+                {
+                    return BadRequest("El documento debe ser Tarjeta Identidad (TI) para clientes de 8 a 17 años.");
+                }
+            }
+            else if (age > 18)
+            {
+                if (customer.TipoDocumento != "Cedula Ciudadanía (CC)")
+                {
+                    return BadRequest("El documento debe ser Cedula Ciudadanía (CC) para clientes mayores de 18 años.");
+                }
+            }
+
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
             return Ok(customer);
