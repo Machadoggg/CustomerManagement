@@ -18,11 +18,45 @@ namespace CustomerManagement.API.Controllers
         }
 
 
+        //[HttpGet]
+        //public async Task<IActionResult> GetAsync()
+        //{
+        //    return Ok(await _context.Customers.ToListAsync());
+        //}
+
         [HttpGet]
-        public async Task<IActionResult> GetAsync()
+        public IActionResult GetAsync(string? nombre, long? documento)
         {
-            return Ok(await _context.Customers.ToListAsync());
+            try
+            {
+                var customers = _context.Customers.ToList();
+                if (nombre != null)
+                {
+                    customers = customers.Where(c => 
+                    c.Nombres.ToLower().IndexOf(nombre) > -1).ToList();
+                    return Ok(customers);
+                }
+                if (documento != null)
+                {
+                    customers = customers.Where(c =>
+                    c.NumeroDocumento == documento).ToList();
+                    return Ok(customers);
+                }
+                else
+                {
+                    return Ok(customers);
+                }
+                
+                
+
+            }
+            catch (Exception)
+            {
+
+                return BadRequest("Error.");
+            }
         }
+
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
@@ -65,5 +99,6 @@ namespace CustomerManagement.API.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
     }
 }
