@@ -18,35 +18,33 @@ namespace CustomerManagement.API.Controllers
         }
 
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetAsync()
-        //{
-        //    return Ok(await _context.Customers.ToListAsync());
-        //}
-
         [HttpGet]
-        public IActionResult GetAsync(string? nombre, long? documento)
+        public IActionResult GetAsync(string? nombre, string? documento)
         {
             try
             {
                 var customers = _context.Customers.ToList();
                 if (nombre != null)
                 {
-                    customers = customers.Where(c => 
-                    c.Nombres.ToLower().IndexOf(nombre) > -1).ToList();
+                    customers = customers
+                        .Where(c => c.Nombres.ToLower().Contains(nombre.ToLower()))
+                        .OrderBy(c => c.Nombres)
+                        .ToList();
+
                     return Ok(customers);
                 }
                 if (documento != null)
                 {
-                    customers = customers.Where(c =>
-                    c.NumeroDocumento == documento).ToList();
-                    return Ok(customers);
-                }
-                else
-                {
+                    customers = customers
+                        .Where(c => c.NumeroDocumento.ToString().Contains(documento))
+                        .OrderBy(c => c.Nombres)
+                        .ToList();
                     return Ok(customers);
                 }
                 
+                return Ok(customers);
+                
+
                 
 
             }
