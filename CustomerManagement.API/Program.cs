@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(d => d.UseSqlServer("name=SQLConnection"));
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<CustomerService>();
 
 var app = builder.Build();
 
@@ -25,12 +26,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-//Habilita las peticiones para consumir endpoints
-//app.UseCors(x => x
-//    .AllowAnyMethod()
-//    .AllowAnyHeader()
-//    .SetIsOriginAllowed(origin => true)
-//    .AllowCredentials());
 
 app.Run();
