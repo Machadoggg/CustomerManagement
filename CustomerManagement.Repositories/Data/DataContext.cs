@@ -1,4 +1,4 @@
-﻿using CustomerManagement.Shared.Entities;
+﻿using CustomerManagement.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomerManagement.API.Data
@@ -16,7 +16,7 @@ namespace CustomerManagement.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Customer>().HasIndex(c => c.NumeroDocumento).IsUnique();
+            //modelBuilder.Entity<Customer>().HasIndex(c => c.NumeroDocumento).IsUnique();
         }
     }
 }
