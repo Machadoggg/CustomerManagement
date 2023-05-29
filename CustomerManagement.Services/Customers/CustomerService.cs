@@ -26,8 +26,11 @@ namespace CustomerManagement.Services.Customers
 
         public async Task<Customer> PostAsync(Customer customer)
         {
-            var customerPost = await _customerRepository.PostAsync(customer);
-            return customerPost;
+           
+                var customerPost = await _customerRepository.PostAsync(customer);
+                return customerPost;
+            
+            
         }
 
         public async Task<Customer> PutAsync(Customer customer)
