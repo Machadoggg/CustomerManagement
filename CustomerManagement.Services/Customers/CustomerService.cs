@@ -24,12 +24,12 @@ namespace CustomerManagement.Services.Customers
             return customer;
         }
 
-        public async Task<Customer> PostAsync(Customer customer)
+        public async Task<Customer> CreateAsync(Customer customer)
         {
             try
             {
                 ValidateAgeDocument(customer);
-                var customerPost = await _customerRepository.PostAsync(customer);
+                var customerPost = await _customerRepository.CreateAsync(customer);
                 return customerPost;
             }
             catch (Exception)
@@ -59,9 +59,9 @@ namespace CustomerManagement.Services.Customers
             return true;
         }
 
-        public async Task<Customer> PutAsync(Customer customer)
+        public async Task<Customer> UpdateAsync(Customer customer)
         {
-            var customerPost = await _customerRepository.PutAsync(customer);
+            var customerPost = await _customerRepository.UpdateAsync(customer);
             return customerPost;
         }
 
@@ -80,6 +80,12 @@ namespace CustomerManagement.Services.Customers
         public async Task<IEnumerable<Customer>> GetByDocumentAsync(string documento)
         {
             var customers = await _customerRepository.GetByDocumentAsync(documento);
+            return customers;
+        }
+
+        public async Task<IEnumerable<Customer>> GetDateRangeAsync(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            var customers = await _customerRepository.GetDateRangeAsync(fechaInicial, fechaFinal);
             return customers;
         }
     }

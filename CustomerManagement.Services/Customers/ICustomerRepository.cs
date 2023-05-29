@@ -12,10 +12,12 @@ namespace CustomerManagement.Services.Customers
 
         Task<Customer> GetByIdAsync(int id);
 
-        Task<Customer> PostAsync(Customer customer);
+        Task<Customer> CreateAsync(Customer customer);
 
-        Task<Customer> PutAsync(Customer customer);
+        Task<Customer> UpdateAsync(Customer customer);
 
         Task<Customer> DeleteAsync(int id);
+
+        Task<IEnumerable<Customer>> GetDateRangeAsync(DateTime fechaInicial, DateTime fechaFinal);
     }
 }

@@ -27,14 +27,14 @@ namespace CustomerManagement.Persistence
             return customer;
         }
 
-        public async Task<Customer> PostAsync(Customer customer)
+        public async Task<Customer> CreateAsync(Customer customer)
         {
                 _context.Customers.Add(customer);
                 await _context.SaveChangesAsync();
                 return (customer);
         }
 
-        public async Task<Customer> PutAsync(Customer customer)
+        public async Task<Customer> UpdateAsync(Customer customer)
         {
                 _context.Customers.Update(customer);
                 await _context.SaveChangesAsync();
@@ -74,6 +74,16 @@ namespace CustomerManagement.Persistence
                     .ToList();
                 return customers;
             }
+            return customers;
+        }
+
+        public async Task<IEnumerable<Customer>> GetDateRangeAsync(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            var customers = _context.Customers
+                .Where(c => c.FechaNacimiento >= fechaInicial && c.FechaNacimiento <= fechaFinal)
+                .OrderBy(c => c.FechaNacimiento)
+                .ToList();
+
             return customers;
         }
     }

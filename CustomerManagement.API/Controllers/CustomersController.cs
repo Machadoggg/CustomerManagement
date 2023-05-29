@@ -1,4 +1,6 @@
-﻿using CustomerManagement.Domain;
+﻿using CustomerManagement.API.Data;
+using CustomerManagement.Domain;
+//using CustomerManagement.Domain.Entities;
 using CustomerManagement.Services.Customers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +11,12 @@ namespace CustomerManagement.API.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly CustomerService _customerService;
+        private readonly DataContext _context;
 
-        public CustomersController(CustomerService CustomerService)
+        public CustomersController(CustomerService CustomerService, DataContext context)
         {
             _customerService = CustomerService;
+            _context = context;
         }
 
 
@@ -70,11 +74,11 @@ namespace CustomerManagement.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostAsync(Customer customer)
+        public async Task<ActionResult> CreateAsync(Customer customer)
         {
             try
             {
-                var customerPost = await _customerService.PostAsync(customer);
+                var customerPost = await _customerService.CreateAsync(customer);
                 return Ok(customerPost);
             }
             catch (Exception ex)
@@ -84,9 +88,9 @@ namespace CustomerManagement.API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> PutAsync(Customer customer)
+        public async Task<ActionResult> UpdateAsync(Customer customer)
         {
-            var customerPut = await _customerService.PutAsync(customer);
+            var customerPut = await _customerService.UpdateAsync(customer);
             return Ok(customerPut);
         }
 
@@ -99,6 +103,14 @@ namespace CustomerManagement.API.Controllers
                 return NotFound();
             }
             return NoContent();
+        }
+
+
+        [HttpGet("GetDatesByRange/")]
+        public async Task<IActionResult> GetDateRangeAsync(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            var customers = _customerService.GetDateRangeAsync(fechaInicial, fechaFinal);
+            return Ok(customers);
         }
     }
 }
