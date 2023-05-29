@@ -9,7 +9,7 @@ namespace CustomerManagement.Persistence.Data
         {    
         }
 
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Entities.Customer> Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

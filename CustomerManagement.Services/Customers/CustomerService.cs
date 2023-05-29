@@ -65,10 +65,10 @@ namespace CustomerManagement.Services.Customers
             return customerPost;
         }
 
-        public async Task<Customer> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            var customer = await _customerRepository.DeleteAsync(id);
-            return customer;
+            await _customerRepository.DeleteAsync(id);
+            return;
         }
 
         public async Task<IEnumerable<Customer>> GetByNameAsync(string nombre)

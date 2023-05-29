@@ -93,12 +93,9 @@ namespace CustomerManagement.API.Controllers
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var customer = await _customerService.DeleteAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-            return NoContent();
+            await _customerService.DeleteAsync(id);
+           
+            return Ok();
         }
 
 

@@ -16,7 +16,7 @@ namespace CustomerManagement.Services.Customers
 
         Task<Customer> UpdateAsync(Customer customer);
 
-        Task<Customer> DeleteAsync(int id);
+        Task DeleteAsync(int id);
 
         Task<IEnumerable<Customer>> GetDateRangeAsync(DateTime fechaInicial, DateTime fechaFinal);
     }
