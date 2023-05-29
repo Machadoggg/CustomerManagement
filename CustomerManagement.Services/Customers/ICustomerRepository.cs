@@ -4,7 +4,11 @@ namespace CustomerManagement.Services.Customers
 {
     public interface ICustomerRepository
     {
-        Task<IEnumerable<Customer>> GetAllAsync(string? nombre, string? documento);
+        Task<IEnumerable<Customer>> GetAllAsync();
+
+        Task<IEnumerable<Customer>> GetByNameAsync(string nombre);
+
+        Task<IEnumerable<Customer>> GetByDocumentAsync(string documento);
 
         Task<Customer> GetByIdAsync(int id);
 

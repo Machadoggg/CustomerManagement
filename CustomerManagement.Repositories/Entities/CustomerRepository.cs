@@ -15,25 +15,9 @@ namespace CustomerManagement.Persistence
         }
 
 
-        public async Task<IEnumerable<Customer>> GetAllAsync(string? nombre, string? documento)
+        public async Task<IEnumerable<Customer>> GetAllAsync()
         {
                 var customers = await _context.Customers.ToListAsync();
-                if (nombre != null)
-                {
-                    customers = customers
-                        .Where(c => c.Nombres.ToLower().Contains(nombre.ToLower()))
-                        .OrderBy(c => c.Nombres)
-                        .ToList();
-                    return customers;
-                }
-                if (documento != null)
-                {
-                    customers = customers
-                        .Where(c => c.NumeroDocumento.ToString().Contains(documento))
-                        .OrderBy(c => c.NumeroDocumento)
-                        .ToList();
-                    return customers;
-                }
                 return customers;
         }
 
@@ -63,6 +47,34 @@ namespace CustomerManagement.Persistence
             _context.Customers.Remove(customer);
             await _context.SaveChangesAsync();
             return customer;
+        }
+
+        public async Task<IEnumerable<Customer>> GetByNameAsync(string nombre)
+        {
+            var customers = await _context.Customers.ToListAsync();
+            if (nombre != null)
+            {
+                customers = customers
+                    .Where(c => c.Nombres.ToLower().Contains(nombre.ToLower()))
+                    .OrderBy(c => c.Nombres)
+                    .ToList();
+                return customers;
+            }
+            return customers;
+        }
+
+        public async Task<IEnumerable<Customer>> GetByDocumentAsync(string documento)
+        {
+            var customers = await _context.Customers.ToListAsync();
+            if (documento != null)
+            {
+                customers = customers
+                    .Where(c => c.NumeroDocumento.ToString().Contains(documento))
+                    .OrderBy(c => c.NumeroDocumento)
+                    .ToList();
+                return customers;
+            }
+            return customers;
         }
     }
 }

@@ -9,9 +9,7 @@ namespace CustomerManagement.API.Data
         {    
         }
 
-
         public DbSet<Customer> Customers { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

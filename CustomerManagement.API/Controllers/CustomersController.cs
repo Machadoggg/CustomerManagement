@@ -17,11 +17,39 @@ namespace CustomerManagement.API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync(string? nombre, string? documento)
+        public async Task<IActionResult> GetAllAsync()
         {
             try
             {
-                var customers = await _customerService.GetAllAsync(nombre, documento);
+                var customers = await _customerService.GetAllAsync();
+                return Ok(customers);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetByNameAsync/{nombre}")]
+        public async Task<IActionResult> GetByNameAsync(string nombre)
+        {
+            try
+            {
+                var customers = await _customerService.GetByNameAsync(nombre);
+                return Ok(customers);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetByDocumentAsync/{documento}")]
+        public async Task<IActionResult> GetByDocumentAsync(string documento)
+        {
+            try
+            {
+                var customers = await _customerService.GetByDocumentAsync(documento);
                 return Ok(customers);
             }
             catch (Exception ex)
