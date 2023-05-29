@@ -1,7 +1,7 @@
 ﻿using CustomerManagement.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomerManagement.API.Data
+namespace CustomerManagement.Persistence.Data
 {
     public class DataContext : DbContext
     {

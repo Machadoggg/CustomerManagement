@@ -1,5 +1,4 @@
-﻿using CustomerManagement.API.Data;
-using CustomerManagement.Domain;
+﻿using CustomerManagement.Domain;
 using CustomerManagement.Services.Customers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +9,10 @@ namespace CustomerManagement.API.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly CustomerService _customerService;
-        private readonly DataContext _context;
 
-        public CustomersController(CustomerService CustomerService, DataContext context)
+        public CustomersController(CustomerService CustomerService)
         {
             _customerService = CustomerService;
-            _context = context;
         }
 
 

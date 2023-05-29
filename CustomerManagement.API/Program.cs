@@ -1,4 +1,4 @@
-using CustomerManagement.API.Data;
+using CustomerManagement.Persistence.Data;
 using CustomerManagement.Persistence;
 using CustomerManagement.Services.Customers;
 using Microsoft.EntityFrameworkCore;

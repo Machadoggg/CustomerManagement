@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CustomerManagement.Domain.Entities
+namespace CustomerManagement.Persistence.Entities
 {
     public class Customer
     {
