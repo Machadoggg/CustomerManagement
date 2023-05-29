@@ -17,8 +17,8 @@ namespace CustomerManagement.Persistence
 
         public async Task<IEnumerable<Customer>> GetAllAsync()
         {
-                var customers = await _context.Customers.ToListAsync();
-                return customers;
+            var customers = await _context.Customers.FromSqlRaw<Customer>("EXEC GetCustomers").ToListAsync();
+            return customers;
         }
 
         public async Task<Customer> GetByIdAsync(int id)
@@ -29,16 +29,16 @@ namespace CustomerManagement.Persistence
 
         public async Task<Customer> CreateAsync(Customer customer)
         {
-                _context.Customers.Add(customer);
-                await _context.SaveChangesAsync();
-                return (customer);
+            _context.Customers.Add(customer);
+            await _context.SaveChangesAsync();
+            return (customer);
         }
 
         public async Task<Customer> UpdateAsync(Customer customer)
         {
-                _context.Customers.Update(customer);
-                await _context.SaveChangesAsync();
-                return customer;
+            _context.Customers.Update(customer);
+            await _context.SaveChangesAsync();
+            return customer;
         }
 
         public async Task<Customer> DeleteAsync(int id)

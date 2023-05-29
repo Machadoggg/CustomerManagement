@@ -1,9 +1,7 @@
 ﻿using CustomerManagement.API.Data;
 using CustomerManagement.Domain;
-//using CustomerManagement.Domain.Entities;
 using CustomerManagement.Services.Customers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CustomerManagement.API.Controllers
 {
@@ -26,8 +24,7 @@ namespace CustomerManagement.API.Controllers
         {
             try
             {
-                var customers = await _context.Customers.FromSqlRaw<Customer>("EXEC GetCustomers").ToListAsync();
-                //var customers = await _customerService.GetAllAsync();
+                var customers = await _customerService.GetAllAsync();
                 return Ok(customers);
             }
             catch (Exception ex)
